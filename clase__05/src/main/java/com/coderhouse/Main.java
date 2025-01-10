@@ -5,7 +5,7 @@ import com.coderhouse.mascotas.Perro;
 
 public class Main {
 
-	public static void main(String[] args) throws Exception {
+	public static void main(String[] args) throws PerroException {
 		
 		Perro unPerro = new Perro();//CONSTRUCTOR PERRO
 		
@@ -13,13 +13,13 @@ public class Main {
 		unPerro.setNombre("Pinto");
 		unPerro.setColor("Lila");
 		unPerro.setTamanio("Chico");
-		try {
-			unPerro.setEdad(16);
-		}catch(Exception err) {
+		try {//tira un mensaje
+			unPerro.setEdad(2);
+		}catch(PerroException err) {
 			System.err.println("Error, " + err.getMessage());
+		}finally {
+			System.out.println("Finalizo la validacion de la perroexception");
 		}
-		unPerro.setEdad(16);
-		
 		unPerro.setRaza("pitbull");
 		
 		
@@ -29,16 +29,18 @@ public class Main {
 		
 		System.out.println(unPerro);
 
-//		Mascota unaMascota = new Mascota();
-//		unaMascota.setNombre("Rex");
-//		unaMascota.setColor("Blanco");
-//		unaMascota.setTamanio("Grande");
-//		unaMascota.setEdad(6);
-//		
-//		unaMascota.caminar();
-//		unaMascota.comer();
-//		
+		Mascota unaMascota = new Mascota();
+		unaMascota.setNombre("Rex");
+		unaMascota.setColor("Blanco");
+		unaMascota.setTamanio("Grande");
+		unaMascota.setEdad(6);
 		
+		unaMascota.caminar();
+		unaMascota.comer();
+		
+		Mascota nuevaMascota = new Mascota("BELICA", "Negro", "Mediano",6);
+		nuevaMascota.caminar();
+		nuevaMascota.comer();
 		
 	}
 

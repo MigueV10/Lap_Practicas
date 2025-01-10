@@ -21,11 +21,10 @@ public class Perro extends Mascota {
 		this.raza = raza;
 	}
 
-	
-	@Override //decoradores, sobrescribiendo
-	public String toString() {
-		return "Hola gente como va?";
-	}
+//	@Override //decoradores, sobrescribiendo
+//	public String toString() {
+//		return "Hola gente como va?";
+//	}
 	
 	
 	
