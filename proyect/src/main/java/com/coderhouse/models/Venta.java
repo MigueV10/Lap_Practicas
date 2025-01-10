@@ -26,6 +26,7 @@ public class Venta {
 	
 	@Column(nullable=false)
     private Date fecha;
+	
 	@Column(nullable=false)
     private int total;
     
@@ -33,12 +34,14 @@ public class Venta {
 	@ManyToOne
 	@JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;
+	
 	//Cada venta puede incluir varios productos y cada producto puede pertener a varias ventas
-	@ManyToMany(fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.LAZY)//cargar los datos bajo demanda
 	@JoinTable(
 			name = "venta_producto", 
 			joinColumns = @JoinColumn(name = "venta_id"), 
 			inverseJoinColumns = @JoinColumn(name = "producto_id"))
+	
 	private List<Producto> productos = new ArrayList<>();
 	
 	//encapsulamiento
@@ -71,15 +74,15 @@ public class Venta {
 	}
 	public void setProductos(List<Producto> productos) {
 		this.productos = productos;
-		calcularTotal();
+		this.total=calcularTotal();// Actualizamos el campo total directamente
 	}
 	public int calcularTotal() {
-		int total=0;
-		for(Producto producto : productos) {
-			total += producto.getPrecio();
-		}
-		return total;
+	        return productos.stream().mapToInt(Producto::getPrecio).sum();
+	    }
+	private void actualizarTotal() {
+	    this.total = productos.stream().mapToInt(Producto::getPrecio).sum();
 	}
+
 	//toString
 	@Override
 	public String toString() {
